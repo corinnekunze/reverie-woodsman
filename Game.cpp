@@ -1,11 +1,14 @@
+#include "stdafx.h"
 #include "Game.h"
+#include "SplashScreen.h"
+#include "MainMenu.h"
 
 void Game::Start(void)
 {
   if (_gameState != Uninitialized) return;
 
   _mainWindow.create(sf::VideoMode(1024, 768, 32), "Reverie Woodsman");
-  _gameState = Game::Playing;
+  _gameState = Game::ShowingSplash;
 
   while(!IsExiting())
   {
@@ -30,6 +33,16 @@ void Game::GameLoop()
   {
     switch(_gameState)
     {
+      case Game::ShowingSplash:
+      {
+        ShowSplashScreen();
+        break;
+      }
+      case Game::ShowingMenu:
+      {
+        ShowMenu();
+        break;
+      }
       case Game::Playing:
       {
         _mainWindow.clear(sf::Color(255, 0, 0));
@@ -42,6 +55,28 @@ void Game::GameLoop()
         break;
       }
     }
+  }
+}
+
+void Game::ShowSplashScreen()
+{
+  SplashScreen splashScreen;
+  splashScreen.show(_mainWindow);
+  _gameState = Game::ShowingMenu;
+}
+
+void Game::ShowMenu()
+{
+  MainMenu mainMenu;
+  MainMenu::MenuResult result = mainMenu.show(_mainWindow);
+  switch(result)
+  {
+    case MainMenu::Exit:
+      _gameState = Game::Exiting;
+      break;
+    case MainMenu::Play:
+      _gameState = Game::Playing;
+      break;
   }
 }
 

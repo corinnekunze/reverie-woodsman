@@ -1,3 +1,6 @@
 EventHandler.o: EventHandler.cpp
-Game.o: Game.cpp Game.h
-main.o: main.cpp Game.h
+Game.o: Game.cpp stdafx.h Game.h SplashScreen.h MainMenu.h
+main.o: main.cpp stdafx.h Game.h
+MainMenu.o: MainMenu.cpp stdafx.h MainMenu.h
+SplashScreen.o: SplashScreen.cpp stdafx.h SplashScreen.h
+stdafx.o: stdafx.cpp stdafx.h
