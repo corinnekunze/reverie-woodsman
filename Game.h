@@ -16,5 +16,5 @@ class Game
 
     static GameState _gameState;
     static sf::RenderWindow _mainWindow;
-}
+};
 
